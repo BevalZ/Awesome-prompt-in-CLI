@@ -162,3 +162,23 @@ read_profile_value() {
 
 # Export read_profile_value for use in other scripts
 export -f read_profile_value
+
+
+
+# Safe read function that works in both interactive and non-interactive environments
+# Handles stdin redirection gracefully
+safe_read() {
+    if [[ -t 0 ]]; then
+        # stdin is a terminal, read normally
+        read "$@"
+    elif { true >/dev/tty; } 2>/dev/null; then
+        # /dev/tty is writable (truly available), use it
+        read "$@" </dev/tty
+    else
+        # No TTY available, read from stdin
+        read "$@"
+    fi
+}
+
+# Export safe_read for use in other scripts
+export -f safe_read

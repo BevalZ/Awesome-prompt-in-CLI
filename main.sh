@@ -193,7 +193,7 @@ show_statistics() {
     if [[ ! -d "$prompts_dir" ]]; then
         print_color "$RED" "❌ Prompts directory not found at: $prompts_dir"
         print_color "$BLUE" "Press Enter or type 'q' to return to main menu..."
-        read -r input </dev/tty
+        safe_read -r input
         if [[ "$input" == "q" ]] || [[ "$input" == "Q" ]]; then
             return
         fi
@@ -245,7 +245,7 @@ show_statistics() {
     if [[ $total_files -eq 0 ]]; then
         print_color "$YELLOW" "No category files found in $prompts_dir"
         print_color "$BLUE" "Press Enter or type 'q' to return to main menu..."
-        read -r input </dev/tty
+        safe_read -r input
         if [[ "$input" == "q" ]] || [[ "$input" == "Q" ]]; then
             return
         fi
@@ -275,7 +275,7 @@ show_statistics() {
     
     while true; do
         echo -n "Select option (1-2) or type 'q' to return: "
-        read -r stat_choice </dev/tty
+        safe_read -r stat_choice
         
         case $stat_choice in
             1|q|Q|"")
@@ -328,7 +328,7 @@ show_documentation_menu() {
         echo ""
         
         echo -n "$(get_string "SELECT_OPTION" "$interface_lang") (1-8) or type 'q' to return: "
-        read -r choice </dev/tty
+        safe_read -r choice
         
         case $choice in
             1)
@@ -344,14 +344,14 @@ show_documentation_menu() {
                 if [[ -f "$SCRIPT_DIR/README.md" ]]; then
                     less "$SCRIPT_DIR/README.md"
                     print_color "$BLUE" "Press Enter or type 'q' to return to documentation menu..."
-                    read -r input </dev/tty
+                    safe_read -r input
                     if [[ "$input" == "q" ]] || [[ "$input" == "Q" ]]; then
                         break
                     fi
                 else
                     print_color "$RED" "README.md not found!"
                     print_color "$BLUE" "Press Enter or type 'q' to return to documentation menu..."
-                    read -r input </dev/tty
+                    safe_read -r input
                     if [[ "$input" == "q" ]] || [[ "$input" == "Q" ]]; then
                         break
                     fi
@@ -404,7 +404,7 @@ show_quick_start_guide() {
     print_color "$MAGENTA" "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
     echo ""
     print_color "$BLUE" "$(get_string "PRESS_ENTER_RETURN" "$interface_lang") documentation menu..."
-    read -r input </dev/tty
+    safe_read -r input
     if [[ "$input" == "q" ]] || [[ "$input" == "Q" ]]; then
         return
     fi
@@ -440,7 +440,7 @@ show_tools_overview() {
     print_color "$MAGENTA" "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
     echo ""
     print_color "$BLUE" "$(get_string "PRESS_ENTER_RETURN" "$interface_lang") documentation menu..."
-    read -r input </dev/tty
+    safe_read -r input
     if [[ "$input" == "q" ]] || [[ "$input" == "Q" ]]; then
         return
     fi
@@ -479,7 +479,7 @@ show_structure_and_format() {
     print_color "$MAGENTA" "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
     echo ""
     print_color "$BLUE" "$(get_string "PRESS_ENTER_RETURN" "$interface_lang") documentation menu..."
-    read -r input </dev/tty
+    safe_read -r input
     if [[ "$input" == "q" ]] || [[ "$input" == "Q" ]]; then
         return
     fi
@@ -517,7 +517,7 @@ show_command_help() {
     print_color "$MAGENTA" "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
     echo ""
     print_color "$BLUE" "$(get_string "PRESS_ENTER_RETURN" "$interface_lang") documentation menu..."
-    read -r input </dev/tty
+    safe_read -r input
     if [[ "$input" == "q" ]] || [[ "$input" == "Q" ]]; then
         return
     fi
@@ -553,7 +553,7 @@ show_languages_categories_guide() {
     print_color "$MAGENTA" "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
     echo ""
     print_color "$BLUE" "$(get_string "PRESS_ENTER_RETURN" "$interface_lang") documentation menu..."
-    read -r input </dev/tty
+    safe_read -r input
     if [[ "$input" == "q" ]] || [[ "$input" == "Q" ]]; then
         return
     fi
@@ -595,7 +595,7 @@ show_smart_navigation_guide() {
     print_color "$MAGENTA" "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
     echo ""
     print_color "$BLUE" "$(get_string "PRESS_ENTER_RETURN" "$interface_lang") documentation menu..."
-    read -r input </dev/tty
+    safe_read -r input
     if [[ "$input" == "q" ]] || [[ "$input" == "Q" ]]; then
         return
     fi
@@ -645,7 +645,7 @@ show_deeplx_menu() {
         else
             echo -n "$(get_string "SELECT_OPTION" "$interface_lang") (1-2) or type 'q' to return: "
         fi
-        read -r choice </dev/tty
+        safe_read -r choice
         
         case $choice in
             1)
@@ -653,7 +653,7 @@ show_deeplx_menu() {
                 "$SCRIPT_DIR/scripts/translate_prompts.sh" --configure-api
                 echo ""
                 print_color "$BLUE" "Press Enter to continue..."
-                read -r input </dev/tty
+                safe_read -r input
                 ;;
             2)
                 if [[ "$deeplx_enabled" != "true" ]]; then
@@ -669,7 +669,7 @@ show_deeplx_menu() {
                 echo "    --prompt-title \"Your Prompt Title\""
                 echo ""
                 print_color "$BLUE" "Press Enter to continue..."
-                read -r input </dev/tty
+                safe_read -r input
                 ;;
             3)
                 if [[ "$deeplx_enabled" != "true" ]]; then
@@ -684,7 +684,7 @@ show_deeplx_menu() {
                 echo "    --source-lang EN --target-lang ZH --category general"
                 echo ""
                 print_color "$BLUE" "Press Enter to continue..."
-                read -r input </dev/tty
+                safe_read -r input
                 ;;
             4)
                 if [[ "$deeplx_enabled" != "true" ]]; then
@@ -699,7 +699,7 @@ show_deeplx_menu() {
                 echo "    --source-lang EN --target-lang ZH,FR,DE"
                 echo ""
                 print_color "$BLUE" "Press Enter to continue..."
-                read -r input </dev/tty
+                safe_read -r input
                 ;;
             5)
                 if [[ "$deeplx_enabled" == "true" ]]; then
@@ -746,7 +746,7 @@ show_translation_menu() {
         echo ""
         
         echo -n "$(get_string "SELECT_OPTION" "$interface_lang") (1-6) or type 'q' to return: "
-        read -r choice </dev/tty
+        safe_read -r choice
         
         case $choice in
             1)
@@ -754,7 +754,7 @@ show_translation_menu() {
                 "$SCRIPT_DIR/scripts/translate_prompts.sh" -s
                 echo ""
                 print_color "$BLUE" "Press Enter or type 'q' to return to translation menu..."
-                read -r input </dev/tty
+                safe_read -r input
                 if [[ "$input" == "q" ]] || [[ "$input" == "Q" ]]; then
                     break
                 fi
@@ -764,7 +764,7 @@ show_translation_menu() {
                 "$SCRIPT_DIR/scripts/translate_prompts.sh" -v
                 echo ""
                 print_color "$BLUE" "Press Enter or type 'q' to return to translation menu..."
-                read -r input </dev/tty
+                safe_read -r input
                 if [[ "$input" == "q" ]] || [[ "$input" == "Q" ]]; then
                     break
                 fi
@@ -774,7 +774,7 @@ show_translation_menu() {
                 "$SCRIPT_DIR/scripts/translate_prompts.sh" -c
                 echo ""
                 print_color "$BLUE" "Press Enter or type 'q' to return to translation menu..."
-                read -r input </dev/tty
+                safe_read -r input
                 if [[ "$input" == "q" ]] || [[ "$input" == "Q" ]]; then
                     break
                 fi
@@ -800,7 +800,7 @@ show_translation_menu() {
                print_color "$BOLD$GREEN" "Total: 108 category files across 12 languages"
                echo ""
                print_color "$BLUE" "Press Enter or type 'q' to return to translation menu..."
-               read -r input </dev/tty
+               safe_read -r input
                if [[ "$input" == "q" ]] || [[ "$input" == "Q" ]]; then
                    break
                fi
@@ -852,7 +852,7 @@ check_scripts() {
         print_color "$BLUE" "Some menu options may not work properly."
         echo ""
         print_color "$BLUE" "Press Enter to continue anyway..."
-        read -r </dev/tty
+        safe_read -r
     fi
 }
 
@@ -864,7 +864,7 @@ run_tool() {
     if [[ ! -f "$SCRIPT_DIR/$tool" ]]; then
         print_color "$RED" "❌ Error: $tool not found!"
         print_color "$BLUE" "Press Enter to continue..."
-        read -r </dev/tty
+        safe_read -r
         return
     fi
     
@@ -886,7 +886,7 @@ run_tool() {
         echo ""
         print_color "$GREEN" "✅ $tool_name completed."
         print_color "$BLUE" "Press Enter to return to main menu..."
-        read -r </dev/tty
+        safe_read -r
     fi
 }
 
@@ -900,7 +900,7 @@ main() {
         show_main_menu
         
         echo -n "Select option (1-8): "
-        read -r choice </dev/tty
+        safe_read -r choice
         
         case $choice in
             1)
@@ -925,7 +925,7 @@ main() {
                     echo ""
                     
                     echo -n "Select option (1-4): "
-                    read -r search_choice </dev/tty
+                    safe_read -r search_choice
                     
                     case $search_choice in
                         1)
@@ -935,12 +935,12 @@ main() {
                             echo ""
                             print_color "$GREEN" "✅ Interactive Search completed."
                             print_color "$BLUE" "Press Enter to return to search menu..."
-                            read -r input </dev/tty
+                            safe_read -r input
                             ;;
                         2)
                             echo ""
                             echo -n "Enter keywords to search: "
-                            read -r keywords </dev/tty
+                            safe_read -r keywords
                             if [[ -n "$keywords" ]]; then
                                 echo ""
                                 print_color "$BLUE" "🔍 Searching for: $keywords"
@@ -948,7 +948,7 @@ main() {
                                 "$SCRIPT_DIR/scripts/search_prompts.sh" $keywords
                                 echo ""
                                 print_color "$BLUE" "Press Enter to return to search menu..."
-                                read -r input </dev/tty
+                                safe_read -r input
                             fi
                             ;;
                         3)
@@ -957,7 +957,7 @@ main() {
                             "$SCRIPT_DIR/scripts/search_prompts.sh" -b
                             echo ""
                             print_color "$BLUE" "Press Enter to return to search menu..."
-                            read -r input </dev/tty
+                            safe_read -r input
                             ;;
                         4|*)
                             # Return to main menu
@@ -1011,7 +1011,7 @@ show_welcome() {
         print_color "$CYAN" "• Support for 12 major academic languages (108 total files)"
         echo ""
         print_color "$BLUE" "Press Enter to continue to the main menu..."
-        read -r </dev/tty
+        safe_read -r
     fi
 }
 

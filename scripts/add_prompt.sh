@@ -276,7 +276,7 @@ select_from_list() {
     
     while true; do
         printf "Select (1-${#options[@]}): " >&2
-        read -r choice </dev/tty
+        safe_read -r choice
         if [[ "$choice" =~ ^[0-9]+$ ]] && [[ $choice -ge 1 ]] && [[ $choice -le ${#options[@]} ]]; then
             echo "${options[$((choice-1))]}"
             return 0
@@ -297,7 +297,7 @@ get_multiline_input() {
     local input=""
     local line=""
     
-    while IFS= read -r line </dev/tty; do
+    while IFS= safe_read -r line; do
         if [[ "$line" == "$end_marker" ]]; then
             break
         fi
@@ -361,12 +361,12 @@ main() {
     # Get prompt details
     echo ""
     echo -n "$(get_string "ENTER_PROMPT_TITLE" "$interface_lang"): "
-    read -r title </dev/tty
+    safe_read -r title
     
     while ! validate_input "$title" 5; do
         print_color "$RED" "Title must be at least 5 characters long"
         echo -n "$(get_string "ENTER_PROMPT_TITLE" "$interface_lang"): "
-        read -r title </dev/tty
+        safe_read -r title
     done
     
     # Select research area
@@ -378,19 +378,19 @@ main() {
     # Get description
     echo ""
     echo -n "$(get_string "ENTER_DESCRIPTION" "$interface_lang"): "
-    read -r description </dev/tty
+    safe_read -r description
     
     while ! validate_input "$description" 10; do
         print_color "$RED" "Description must be at least 10 characters long"
         echo -n "$(get_string "ENTER_DESCRIPTION_SHORT" "$interface_lang"): "
-        read -r description </dev/tty
+        safe_read -r description
     done
     
     # Check if description is in English
     if ! check_english "$description"; then
         print_color "$YELLOW" "⚠️  WARNING: Description doesn't appear to be in English."
         echo -n "$(get_string "CONTINUE_ANYWAY" "$interface_lang"): "
-        read -r confirm </dev/tty
+        safe_read -r confirm
         if [[ ! "$confirm" =~ ^[Yy]$ ]]; then
             print_color "$RED" "Aborted."
             exit 1
@@ -413,7 +413,7 @@ main() {
     if ! check_english "$prompt_text"; then
         print_color "$YELLOW" "⚠️  WARNING: Prompt text doesn't appear to be in English."
         echo -n "$(get_string "CONTINUE_ANYWAY" "$interface_lang"): "
-        read -r confirm </dev/tty
+        safe_read -r confirm
         if [[ ! "$confirm" =~ ^[Yy]$ ]]; then
             print_color "$RED" "Aborted."
             exit 1
@@ -439,7 +439,7 @@ main() {
     # Confirm
     echo ""
     echo -n "$(get_string "ADD_PROMPT_CONFIRM" "$interface_lang"): $selected_category$(get_string "ADD_PROMPT_CONFIRM_SUFFIX" "$interface_lang"): "
-    read -r confirm </dev/tty
+    safe_read -r confirm
     
     if [[ "$confirm" =~ ^[Nn]$ ]]; then
         print_color "$RED" "Aborted."

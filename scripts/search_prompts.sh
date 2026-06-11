@@ -240,13 +240,13 @@ browse_category_prompts() {
     
     while true; do
         echo -n "$(get_string "SELECT_OPTION_1_3" "$interface_lang") "
-        read -r browse_choice </dev/tty
+        safe_read -r browse_choice
         
         case $browse_choice in
             1)
                 if [[ -n "$prompts_data" ]]; then
                     echo -n "$(get_string "ENTER_PROMPT_NUMBER" "$interface_lang") (1-$total_prompts): "
-                    read -r prompt_selection </dev/tty
+                    safe_read -r prompt_selection
                     
                     if [[ "$prompt_selection" =~ ^[0-9]+$ ]] && [[ $prompt_selection -ge 1 ]] && [[ $prompt_selection -le $total_prompts ]]; then
                         # Find the selected prompt
@@ -365,7 +365,7 @@ show_category_browser() {
         echo ""
         
         echo -n "$(get_string "ENTER_CATEGORY_NUMBER" "$interface_lang") (1-${#categories[@]}) $(get_string "OR_RETURN" "$interface_lang") "
-        read -r category_choice </dev/tty
+        safe_read -r category_choice
         
         case $category_choice in
             0)
@@ -565,7 +565,7 @@ show_prompt_action_menu() {
         echo ""
         
         echo -n "$(get_string "SELECT_OPTION_1_3_PROMPT" "$interface_lang") "
-        read -r action_choice </dev/tty
+        safe_read -r action_choice
         
         case $action_choice in
             1)
@@ -648,7 +648,7 @@ show_category_prompt_action_menu() {
         echo ""
         
         echo -n "$(get_string "SELECT_OPTION_1_3_PROMPT" "$interface_lang") "
-        read -r action_choice </dev/tty
+        safe_read -r action_choice
         
         case $action_choice in
             1)
@@ -694,7 +694,7 @@ copy_language_version() {
     echo ""
     
     echo -n "$(get_string "SELECT_LANGUAGE_1_13" "$interface_lang") "
-    read -r lang_choice </dev/tty
+    safe_read -r lang_choice
     
     case $lang_choice in
         1) copy_language_prompt "$prompt_content" "EN" ;;
@@ -878,7 +878,7 @@ interactive_search() {
     
     while true; do
         echo -n "$(get_string "ENTER_SEARCH_KEYWORDS" "$interface_lang"): "
-        read -r keywords </dev/tty
+        safe_read -r keywords
         
         if [[ "$keywords" == "quit" ]] || [[ "$keywords" == "q" ]]; then
             print_color "$GREEN" "Goodbye!"
@@ -918,7 +918,7 @@ interactive_search() {
         
         display_search_summary "$total_results"
         
-        read -r selection </dev/tty
+        safe_read -r selection
         
         if [[ -z "$selection" ]]; then
             print_color "$YELLOW" "Skipping prompt details."
@@ -931,7 +931,7 @@ interactive_search() {
             if [[ $? -eq 0 ]]; then
                 echo ""
                 display_search_summary "$total_results"
-                read -r selection2 </dev/tty
+                safe_read -r selection2
                 
                 if [[ -z "$selection2" ]]; then
                     print_color "$YELLOW" "Skipping prompt details."
@@ -971,7 +971,7 @@ show_search_options_menu() {
         echo ""
         
         echo -n "$(get_string "SELECT_OPTION_1_4" "$interface_lang") "
-        read -r search_choice </dev/tty
+        safe_read -r search_choice
         
         case $search_choice in
             1)
@@ -982,7 +982,7 @@ show_search_options_menu() {
             2)
                 echo ""
                 echo -n "$(get_string "ENTER_KEYWORDS_TO_SEARCH" "$interface_lang") "
-                read -r keywords </dev/tty
+                safe_read -r keywords
                 if [[ -n "$keywords" ]]; then
                     echo ""
                     print_color "$BLUE" "$(get_string "SEARCHING_FOR" "$interface_lang") $keywords"
@@ -1032,13 +1032,13 @@ perform_search() {
         print_color "$CYAN" "Try different keywords or be more specific"
         echo ""
         print_color "$BLUE" "Press Enter to return to search menu..."
-        read -r input </dev/tty
+        safe_read -r input
         return
     fi
     
     display_search_summary "$total_results"
     
-    read -r selection </dev/tty
+    safe_read -r selection
     
     if [[ -z "$selection" ]]; then
         print_color "$YELLOW" "Skipping prompt details."
@@ -1051,7 +1051,7 @@ perform_search() {
         if [[ $? -eq 0 ]]; then
             echo ""
             display_search_summary "$total_results"
-            read -r selection2 </dev/tty
+            safe_read -r selection2
             
             if [[ -z "$selection2" ]]; then
                 print_color "$YELLOW" "Skipping prompt details."
@@ -1181,7 +1181,7 @@ main() {
     
         display_search_summary "$total_results"
         
-        read -r selection </dev/tty
+        safe_read -r selection
         
         if [[ -z "$selection" ]]; then
             print_color "$YELLOW" "Skipping prompt details."

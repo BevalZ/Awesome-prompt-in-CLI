@@ -151,7 +151,7 @@ add_research_area() {
     while true; do
         echo ""
         echo -n "$(get_string "ENTER_NEW_RESEARCH_AREA" "$interface_lang"): "
-        read -r new_area </dev/tty
+        safe_read -r new_area
         
         if [[ "$new_area" == "done" ]] || [[ -z "$new_area" ]]; then
             if [[ -z "$new_area" ]]; then
@@ -194,7 +194,7 @@ add_research_area() {
         
         # Ask if user wants to add another
         echo -n "$(get_string "ADD_ANOTHER_RESEARCH_AREA" "$interface_lang"): "
-        read -r continue_choice </dev/tty
+        safe_read -r continue_choice
         if [[ ! "$continue_choice" =~ ^[Yy]$ ]]; then
             break
         fi
@@ -209,7 +209,7 @@ add_prompt_category() {
     while true; do
         echo ""
         echo -n "$(get_string "ENTER_NEW_PROMPT_CATEGORY" "$interface_lang"): "
-        read -r new_category </dev/tty
+        safe_read -r new_category
         
         if [[ "$new_category" == "done" ]] || [[ -z "$new_category" ]]; then
             if [[ -z "$new_category" ]]; then
@@ -252,7 +252,7 @@ add_prompt_category() {
         
         # Ask if user wants to add another
         echo -n "$(get_string "ADD_ANOTHER_PROMPT_CATEGORY" "$interface_lang"): "
-        read -r continue_choice </dev/tty
+        safe_read -r continue_choice
         if [[ ! "$continue_choice" =~ ^[Yy]$ ]]; then
             break
         fi
@@ -274,7 +274,7 @@ select_from_list() {
     
     while true; do
         printf "Select (1-${#options[@]}): "
-        read -r choice </dev/tty
+        safe_read -r choice
         if [[ "$choice" =~ ^[0-9]+$ ]] && [[ $choice -ge 1 ]] && [[ $choice -le ${#options[@]} ]]; then
             echo "${options[$((choice-1))]}"
             return 0
@@ -313,14 +313,14 @@ manage_file() {
         echo ""
         
         echo -n "$(get_string "SELECT_OPTION_1_4_SHORT" "$interface_lang"): "
-        read -r choice </dev/tty
+        safe_read -r choice
         
         case $choice in
             1)
                 add_research_area "$file"
                 echo ""
                 print_color "$BLUE" "Press Enter to continue..."
-                read -r </dev/tty
+                safe_read -r
                 clear
                 print_color "$GREEN" "📝 Managing: $category"
                 print_color "$BLUE" "Title: $title"
@@ -330,7 +330,7 @@ manage_file() {
                 add_prompt_category "$file"
                 echo ""
                 print_color "$BLUE" "Press Enter to continue..."
-                read -r </dev/tty
+                safe_read -r
                 clear
                 print_color "$GREEN" "📝 Managing: $category"
                 print_color "$BLUE" "Title: $title"
@@ -362,7 +362,7 @@ interactive_mode() {
         
         print_color "$BLUE" "Select a category to manage (or 'q' to quit):"
         echo -n "$(get_string "ENTER_CATEGORY_NUMBER_OR_NAME" "$interface_lang"): "
-        read -r input </dev/tty
+        safe_read -r input
         
         if [[ "$input" == "q" ]] || [[ "$input" == "quit" ]]; then
             print_color "$GREEN" "Goodbye!"
