@@ -46,3 +46,16 @@ temp/
 Thumbs.db
 ehthumbs.db
 Desktop.ini
+
+# Trellis AI framework files
+.trellis/
+.agents/
+.claude/
+.codex/
+.kiro/
+.pi/
+AGENTS.md
+
+# Backup files
+*.backup
+*.bak

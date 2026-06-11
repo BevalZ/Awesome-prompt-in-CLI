@@ -127,6 +127,106 @@ This collection includes prompts for academic research across 12 major academic 
 
 ## 🚀 Quick Start
 
+## 🌐 Cross-Platform Support
+
+This toolkit is designed to work seamlessly across all major operating systems:
+
+### ✅ Supported Platforms
+
+| Platform | Environment | Launch Command |
+|----------|-------------|----------------|
+| **Windows** | CMD | `main.bat` |
+| **Windows** | PowerShell | `.\main.ps1` |
+| **Windows** | Git Bash | `bash main.sh` |
+| **Windows** | WSL (Ubuntu/Debian) | `bash main.sh` |
+| **Windows** | Cygwin | `bash main.sh` |
+| **Linux** | bash/zsh/sh | `bash main.sh` |
+| **macOS** | bash/zsh | `bash main.sh` |
+
+### 🔧 Features
+
+- **Automatic OS Detection**: Scripts detect your operating system automatically
+- **Path Conversion**: Windows paths are automatically converted when needed
+- **Native Launchers**: Use `main.bat` (CMD) or `main.ps1` (PowerShell) on Windows
+- **No Dependencies**: Pure Bash implementation, no external tools required
+- **Colored Output**: Terminal colors work across all platforms
+
+### 🚀 Quick Start by Platform
+
+<details>
+<summary><strong>Windows Users (Click to expand)</strong></summary>
+
+#### Option 1: CMD (Recommended for Windows)
+```cmd
+cd path\to\Awesome-prompt-in-CLI
+main.bat
+```
+
+#### Option 2: PowerShell
+```powershell
+cd path\to\Awesome-prompt-in-CLI
+.\main.ps1
+```
+
+#### Option 3: Git Bash
+```bash
+cd /d/path/to/Awesome-prompt-in-CLI
+bash main.sh
+```
+
+#### Option 4: WSL (Windows Subsystem for Linux)
+```bash
+cd /mnt/d/path/to/Awesome-prompt-in-CLI
+bash main.sh
+```
+
+</details>
+
+<details>
+<summary><strong>Linux Users (Click to expand)</strong></summary>
+
+```bash
+cd ~/path/to/Awesome-prompt-in-CLI
+bash main.sh
+# Or make it executable and run directly:
+chmod +x main.sh
+./main.sh
+```
+
+</details>
+
+<details>
+<summary><strong>macOS Users (Click to expand)</strong></summary>
+
+```bash
+cd ~/path/to/Awesome-prompt-in-CLI
+bash main.sh
+# Or make it executable and run directly:
+chmod +x main.sh
+./main.sh
+```
+
+**Note**: macOS Catalina+ uses Zsh by default, but Bash is still available.
+
+</details>
+
+### 🧪 Testing
+
+A comprehensive test suite is included to verify cross-platform compatibility:
+
+```bash
+bash test/cross_platform_test.sh
+```
+
+This runs 10 automated tests covering:
+- OS detection
+- Path conversion
+- Environment detection
+- Function exports
+- Integration testing
+
+
+
 <details>
 <summary><strong>📋 Most Common Tasks (Click to expand)</strong></summary>
 
