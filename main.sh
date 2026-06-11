@@ -19,6 +19,14 @@ NC='\033[0m' # No Color
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROFILE_FILE="$SCRIPT_DIR/Profiles/user_profile.conf"
 
+# Load cross-platform common library
+SCRIPT_LIB="$SCRIPT_DIR/scripts/lib/common.sh"
+if [[ -f "$SCRIPT_LIB" ]]; then
+    source "$SCRIPT_LIB"
+else
+    echo "Warning: common.sh not found, path conversion disabled"
+fi
+
 # Load language strings
 source "$SCRIPT_DIR/Profiles/language_strings.sh" 2>/dev/null || true
 
@@ -32,19 +40,6 @@ get_display_width() {
     local char_count=${#text}
     # Subtract emoji count (they're counted in char_count) and add 2 per emoji for display width
     echo $((char_count + emoji_count))
-}
-
-# Function to print colored output
-print_color() {
-    local color=$1
-    local message=$2
-    local show_colors=$(read_profile_value "SHOW_COLORS" "true")
-    
-    if [[ "$show_colors" == "true" ]]; then
-        echo -e "${color}${message}${NC}"
-    else
-        echo "$message"
-    fi
 }
 
 # Function to read profile value
@@ -63,7 +58,6 @@ read_profile_value() {
         echo "$default_value"
     fi
 }
-
 # Function to print header
 print_header() {
     clear
