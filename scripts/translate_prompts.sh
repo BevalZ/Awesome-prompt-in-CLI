@@ -20,6 +20,12 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 PROMPTS_DIR="$SCRIPT_DIR/Prompts"
 PROFILE_FILE="$SCRIPT_DIR/Profiles/user_profile.conf"
 
+# Load cross-platform common library
+SCRIPT_LIB="$SCRIPT_DIR/scripts/lib/common.sh"
+if [[ -f "$SCRIPT_LIB" ]]; then
+    source "$SCRIPT_LIB"
+fi
+
 # Load language strings
 source "$SCRIPT_DIR/Profiles/language_strings.sh" 2>/dev/null || true
 

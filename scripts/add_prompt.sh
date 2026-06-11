@@ -17,6 +17,12 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 PROMPTS_DIR="$SCRIPT_DIR/Prompts/EN"
 PROFILE_FILE="$SCRIPT_DIR/Profiles/user_profile.conf"
 
+# Load cross-platform common library
+SCRIPT_LIB="$SCRIPT_DIR/scripts/lib/common.sh"
+if [[ -f "$SCRIPT_LIB" ]]; then
+    source "$SCRIPT_LIB"
+fi
+
 # Load language strings
 source "$SCRIPT_DIR/Profiles/language_strings.sh" 2>/dev/null || true
 
@@ -35,29 +41,6 @@ read_profile_value() {
     else
         echo "$default_value"
     fi
-}
-
-# Function to print colored output
-print_color() {
-    local color=$1
-    local message=$2
-    local show_colors=$(read_profile_value "SHOW_COLORS" "true")
-    
-    if [[ "$show_colors" == "true" ]]; then
-        echo -e "${color}${message}${NC}"
-    else
-        echo "$message"
-    fi
-}
-
-# Function to detect OS
-detect_os() {
-    case "$(uname -s)" in
-        Linux*)     echo "Linux";;
-        Darwin*)    echo "macOS";;
-        CYGWIN*|MINGW*|MSYS*) echo "Windows";;
-        *)          echo "Unknown";;
-    esac
 }
 
 # Function to check if command exists

@@ -140,3 +140,25 @@ export -f should_convert_paths
 export -f to_windows_path
 export -f convert_paths_in_text
 export -f print_color
+
+# Backward compatibility: read_profile_value for scripts
+# Many scripts use this function to read user preferences
+read_profile_value() {
+    local key="$1"
+    local default_value="$2"
+    local profile_file="${PROFILE_FILE:-${SCRIPT_DIR:-$(pwd)}/Profiles/user_profile.conf}"
+    
+    if [[ -f "$profile_file" ]]; then
+        local value=$(grep "^$key=" "$profile_file" 2>/dev/null | cut -d'=' -f2 | cut -d'#' -f1 | tr -d ' ')
+        if [[ -n "$value" ]]; then
+            echo "$value"
+        else
+            echo "$default_value"
+        fi
+    else
+        echo "$default_value"
+    fi
+}
+
+# Export read_profile_value for use in other scripts
+export -f read_profile_value

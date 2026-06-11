@@ -18,6 +18,12 @@ NC='\033[0m' # No Color
 # Script directory
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 PROFILE_FILE="$SCRIPT_DIR/Profiles/user_profile.conf"
+
+# Load cross-platform common library
+SCRIPT_LIB="$SCRIPT_DIR/scripts/lib/common.sh"
+if [[ -f "$SCRIPT_LIB" ]]; then
+    source "$SCRIPT_LIB"
+fi
 DEFAULT_PROFILE="$SCRIPT_DIR/Profiles/default_profile.conf"
 
 # Load language strings

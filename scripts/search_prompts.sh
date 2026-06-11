@@ -21,6 +21,12 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 README_FILE="$SCRIPT_DIR/README.md"
 PROFILE_FILE="$SCRIPT_DIR/Profiles/user_profile.conf"
 
+# Load cross-platform common library
+SCRIPT_LIB="$SCRIPT_DIR/scripts/lib/common.sh"
+if [[ -f "$SCRIPT_LIB" ]]; then
+    source "$SCRIPT_LIB"
+fi
+
 # Function to get prompts directory based on interface language
 get_prompts_directory() {
     local interface_lang=$(read_profile_value "INTERFACE_LANGUAGE" "EN")
