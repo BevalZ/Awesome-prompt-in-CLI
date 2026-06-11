@@ -59,3 +59,10 @@ AGENTS.md
 # Backup files
 *.backup
 *.bak
+
+# Test logs
+test_results_*.log
+
+# Temporary files
+*.cast
+validation_output.txt
